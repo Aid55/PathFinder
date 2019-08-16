@@ -6,6 +6,7 @@
 package pathfinding;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -18,13 +19,18 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int[] startLoc = new int[]{1,2};
-        Board board = new Board(startLoc);
-        pathFinder = new PathFinder();
-        pathFinder.aStar(board.getBoard(), startLoc, new int[]{5,5});
-        for(int[] i: pathFinder.getPath()){
+        int[] startLoc = new int[]{1,1};
+        int[] targetLoc = new int[]{29,26};
+        Board board = new Board(startLoc, targetLoc);
+        List<int[]> x = PathFinder.aStar(board.getBoard(), startLoc, targetLoc);
+        for(int[] i: x){
             System.out.printf(Arrays.toString(i));
+            board.setLocs(x);
+            board.repaint();
         }
+//        for(int[] i: pathFinder.getPath()){
+//            System.out.printf(Arrays.toString(i));
+//        }
     }
     
 }

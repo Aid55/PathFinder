@@ -21,16 +21,16 @@ import java.util.List;
 
 public class PathFinder {
     
-    private int[] startLoc;
-    private int[] targetLoc;
-    private int[][] board;
-    private Node startNode;
-    private Node targetNode;
-    private Node currentNode;
-    private List<Node> openList;
-    private List<Node> closedList;
-    private int currentIndex;
-    List<int[]> path = new ArrayList<>();
+    private static int[] startLoc;
+    private static int[] targetLoc;
+    private static int[][] board;
+    private static Node startNode;
+    private static Node targetNode;
+    private static Node currentNode;
+    private static List<Node> openList;
+    private static List<Node> closedList;
+    private static int currentIndex;
+    private static List<int[]> path = new ArrayList<>();
     
     public PathFinder(){
         
@@ -40,10 +40,10 @@ public class PathFinder {
 //        }
     }
     
-    public List<int[]> aStar(int[][] board, int[] start, int[] target){
-        this.board = board;
-        this.startLoc = start;
-        this.targetLoc = target;
+    public static List<int[]> aStar(int[][] board, int[] start, int[] target){
+        board = board;
+        startLoc = start;
+        targetLoc = target;
         
         startNode = new Node(null, startLoc);
         startNode.setG(0);
@@ -80,6 +80,7 @@ public class PathFinder {
                     current = current.getParent();
                 }
                 Collections.reverse(path);
+                return path;
 //                System.out.println("path found");
             }
             
@@ -95,7 +96,7 @@ public class PathFinder {
                 if(nodePosition[0] < 0 || nodePosition[0] > board.length - 1 || nodePosition[1] < 0 || nodePosition[1] > board[0].length - 1){
                     continue;
                 }
-                if(board[nodePosition[1]][nodePosition[0]] != 0){
+                if(board[nodePosition[0]][nodePosition[1]] >= 10){
                     continue;
                 }
                 Node newNode = new Node(currentNode, nodePosition);
