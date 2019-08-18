@@ -35,25 +35,25 @@ public class Board extends JFrame{
             @Override
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
-                for(int x = 0; x < board[0].length; x++){
-                    for(int y = 0; y < board.length; y++){
-                        if(board[y][x] <= 10){
+                for(int x = 0; x < board.length; x++){
+                    for(int y = 0; y < board[0].length; y++){
+                        if(board[x][y] <= 10){
                             g.setColor(Color.GRAY);
                         }
                         else{
                             g.setColor(Color.BLACK);
                         }
-                        g.fillRect((x+1) * 15, (y+1) * 15, 10, 10);
+                        g.fillRect((y) * 15, (x) * 15, 10, 10);
                     }
                 }
                 g.setColor(Color.YELLOW);
                 for(int[] loc: locs){
-                    g.fillRect((loc[1]+ 1) * 15, (loc[0]+1) * 15, 10, 10);
+                    g.fillRect((loc[0]) * 15, (loc[1]) * 15, 10, 10);
                 }
                 g.setColor(Color.RED);
-                g.fillRect((startLoc[1]+ 1) * 15, (startLoc[0]+1) * 15, 10, 10);
+                g.fillRect((startLoc[0]) * 15, (startLoc[1]) * 15, 10, 10);
                 g.setColor(Color.GREEN);
-                g.fillRect((targetLoc[1]+ 1) * 15, (targetLoc[0]+1) * 15, 10, 10);
+                g.fillRect((targetLoc[0]) * 15, (targetLoc[1]) * 15, 10, 10);
                 
                 
             }

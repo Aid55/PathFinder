@@ -93,10 +93,10 @@ public class PathFinder {
             
             for(int[] newPosition: newPositions){
                 int[] nodePosition = new int[]{currentNode.getPosition()[0] + newPosition[0], currentNode.getPosition()[1] + newPosition[1]};
-                if(nodePosition[0] < 0 || nodePosition[0] > board.length - 1 || nodePosition[1] < 0 || nodePosition[1] > board[0].length - 1){
+                if(nodePosition[0] < 0 || nodePosition[0] > board[0].length - 1 || nodePosition[1] < 0 || nodePosition[1] > board.length - 1){
                     continue;
                 }
-                if(board[nodePosition[0]][nodePosition[1]] >= 10){
+                if(board[nodePosition[1]][nodePosition[0]] > 10){
                     continue;
                 }
                 Node newNode = new Node(currentNode, nodePosition);

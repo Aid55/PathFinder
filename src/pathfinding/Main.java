@@ -19,8 +19,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int[] startLoc = new int[]{1,1};
-        int[] targetLoc = new int[]{29,26};
+        int[] startLoc = new int[]{1,2};
+        int[] targetLoc = new int[]{11,13};
         Board board = new Board(startLoc, targetLoc);
         List<int[]> x = PathFinder.aStar(board.getBoard(), startLoc, targetLoc);
         for(int[] i: x){
