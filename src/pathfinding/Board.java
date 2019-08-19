@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A Board object is a representation of a 2D int array
  * @author Aidan
  */
 public class Board extends JFrame{
@@ -25,7 +25,12 @@ public class Board extends JFrame{
     int[] targetLoc;
     List<int[]> locs = new ArrayList<>();
     
-    
+    /**
+     * Creates the board as a visual representation of a 2D Array of tiles and fills in
+     * the tile colours.
+     * @param start
+     * @param target
+     */
     public Board(int[] start, int[] target){
         super("PathFinder");
         this.startLoc = start;
@@ -35,15 +40,15 @@ public class Board extends JFrame{
             @Override
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
-                for(int x = 0; x < board.length; x++){
-                    for(int y = 0; y < board[0].length; y++){
-                        if(board[x][y] <= 10){
+                for(int y = 0; y < board.length; y++){
+                    for(int x = 0; x < board[0].length; x++){
+                        if(board[y][x] <= 10){
                             g.setColor(Color.GRAY);
                         }
                         else{
                             g.setColor(Color.BLACK);
                         }
-                        g.fillRect((y) * 15, (x) * 15, 10, 10);
+                        g.fillRect((x) * 15, (y) * 15, 10, 10);
                     }
                 }
                 g.setColor(Color.YELLOW);
@@ -103,14 +108,26 @@ public class Board extends JFrame{
         board[30] = new int[]{20,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,19}; 
     }
 
+    /**
+     * Returns the board 2D int array
+     * @return
+     */
     public int[][] getBoard() {
         return board;
     }
 
+    /**
+     * Sets the board variable to a new 2D int array
+     * @param board
+     */
     public void setBoard(int[][] board) {
         this.board = board;
     }
     
+    /**
+     * Sets a list of locations to be shown on the board
+     * @param locList
+     */
     public void setLocs(List<int[]> locList){
         locs = locList;
     }

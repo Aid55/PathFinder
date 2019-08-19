@@ -11,13 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
+ * Class for finding a path from a locations to a target location using various different
+ * pathfinding algorithms.
  * @author Aidan
  */
-
-
-
-
 
 public class PathFinder {
     
@@ -32,16 +29,22 @@ public class PathFinder {
     private static int currentIndex;
     private static List<int[]> path = new ArrayList<>();
     
+    /**
+     *
+     */
     public PathFinder(){
-        
-        
-//        for(int[] i: aStar()){
-//            System.out.println(Arrays.toString(i));
-//        }
     }
     
-    public static List<int[]> aStar(int[][] board, int[] start, int[] target){
-        board = board;
+    /**
+     * Takes the board 2D int array and the start and target tiles
+     * Uses the A* pathfinding algorithm to find and return a path to the target
+     * @param boardGrid
+     * @param start
+     * @param target
+     * @return
+     */
+    public static List<int[]> aStar(int[][] boardGrid, int[] start, int[] target){
+        board = boardGrid;
         startLoc = start;
         targetLoc = target;
         
@@ -71,7 +74,7 @@ public class PathFinder {
             openList.remove(currentIndex);
             closedList.add(currentNode);
             
-            
+            // Create a list of tiles if the currentNode position is the same as the targets position and then return the path list.
             if (currentNode.getPosition()[0] == targetNode.getPosition()[0] && currentNode.getPosition()[1] == targetNode.getPosition()[1]){
                 path = new ArrayList<>();
                 Node current = currentNode;
@@ -81,16 +84,22 @@ public class PathFinder {
                 }
                 Collections.reverse(path);
                 return path;
-//                System.out.println("path found");
             }
             
+            // New possible positions
             List<Node> children = new ArrayList<>();
-            int[][] newPositions = new int[4][];
-            newPositions[0] = new int[]{0,-1};
-            newPositions[1] = new int[]{0,1};
-            newPositions[2] = new int[]{-1,0};
-            newPositions[3] = new int[]{1,0};
+            List<int []> newPositions = new ArrayList<>();
+            newPositions.add(new int[]{0,-1});
+            newPositions.add(new int[]{0,1});
+            newPositions.add(new int[]{-1,0});
+            newPositions.add(new int[]{1,0});
+            //UNCOMMENT THE BELOW TO INCLUDE DIAGONAL MOVEMENTS
+//            newPositions.add(new int[]{-1,-1});
+//            newPositions.add(new int[]{1,1});
+//            newPositions.add(new int[]{-1,1});
+//            newPositions.add(new int[]{1,-1});
             
+            // Create a new child node for each position if on the board and a valid tile
             for(int[] newPosition: newPositions){
                 int[] nodePosition = new int[]{currentNode.getPosition()[0] + newPosition[0], currentNode.getPosition()[1] + newPosition[1]};
                 if(nodePosition[0] < 0 || nodePosition[0] > board[0].length - 1 || nodePosition[1] < 0 || nodePosition[1] > board.length - 1){
@@ -102,16 +111,12 @@ public class PathFinder {
                 Node newNode = new Node(currentNode, nodePosition);
                 children.add(newNode);
             }
-//            System.out.println("Current Node: " + Arrays.toString(currentNode.getPosition()));
-//            System.out.printf("Children Nodes:");
             
+            // Add child node to children list if not already a closed node
             for(Node child: children){
-//                System.out.printf("" + Arrays.toString(child.getPosition()));
                 boolean a = false;
                 for(Node closedNode: closedList){
                     if(closedNode.getPosition()[0] == child.getPosition()[0] && closedNode.getPosition()[1] == child.getPosition()[1]){
-//                        System.out.println();
-//                        System.out.println("" + Arrays.toString(closedNode.getPosition()) + "is the same as" + Arrays.toString(child.getPosition()));
                         a = true;
                         break;
                     }
@@ -123,6 +128,7 @@ public class PathFinder {
                 child.setH((int)Math.sqrt((Math.pow((double)child.getPosition()[0] - targetNode.getPosition()[0], 2) + Math.pow((double)child.getPosition()[1] - targetNode.getPosition()[1], 2))));
                 child.setF(child.getG() + child.getH());
                 
+                // If child node position matches a node in open list, compares the G value to see if it is more efficient and replaces if so
                 boolean b = false;
                 for(Node openNode: openList){
                     if(Arrays.equals(child.getPosition(), openNode.getPosition())){
@@ -145,7 +151,14 @@ public class PathFinder {
         return new ArrayList<int[]>();
     }
     
-    
+    /**
+     * Returns the last path found
+     * @return
+     */
+    public List<int[]> getPath() {
+        return path;
+    }
+
     
 
     
@@ -176,7 +189,4 @@ public class PathFinder {
 //        System.out.println();
 //    }
 
-    public List<int[]> getPath() {
-        return path;
-    }
 }
